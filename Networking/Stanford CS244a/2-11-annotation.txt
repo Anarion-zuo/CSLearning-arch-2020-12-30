@@ -1,0 +1,287 @@
+This video is going to dig into the details of TCP connection setup and
+teardown. This is a deeper look than sort of, the
+initial service model we presented. Looking at a couple of edge cases and the
+entire TCP state diagram. So, we're going to look at 3-way
+handshake, something called simultaneous open which turns out to be really
+important today in peer to peer applications, and actually show the full
+TCP state machine for connection setup and teardown.
+So, the high level problem here is, if we want to communicate reliably, it turns out
+it's very helpful to have state on one or both ends of the connection.
+You can, in fact, turn, turns out you can communicate reliably with having something
+stateless on one end or the other, but it's much less efficient.
+Having a little bit of state is great, it'll make you have much better
+throughput, etc.. But, if we have this state, there's this
+problem of, how do we set up that state? What is it?
+So, connection establishment. But then, also, given the state's going to
+us to take, take up RAM in your machine, when can you tear it down?
+When is, can you, sort of, garbage collect this state, and reuse it?
+So, for example, the memory structures using for your TCP connection, the buffers
+are also the port numbers that you used. So, there are these problems of connection
+establishment and teardown. So, here's the standard TCP header with
+its standard twenty byte payload, and then options.
+So, for connection set up, as we've seen before, there are four parts of the header
+that are used. The sequence number, the acknowledgment
+number, the ACK bit and the SYN bit. So, here, I'm going to walk through the 3-way
+handshake in a little bit more detail as to what happens in the packets that are
+exchanged. So, recall in the standard 3-way handshake
+model, we have an active opener and a passive opener.
+The passive opener is sitting, listening, waiting for a connection request, such as
+a web server. The active opener is the one who initiates
+the request, the request to start the connection.
+So, in the first step, the active opener sends a TCP segment with the SYN bit set
+to indicate that its synchronizing the passive side to the beginning of its stream
+it saying what is the first sequence number of my stream?
+And so, let's call it S sub a. So, you do this rather than just say assume zero for
+a bunch of reasons. Number one, it's very helpful to randomize
+your starting sequence number for security reasons.
+It means that people can't guess where your stream starts and try to insert data
+on you. Also, it's useful if there happen to be
+old packets flying around the internet, which sometimes happens, you get
+tremendous delays somewhere. If you randomize your starting sequence
+number, then it becomes very unlikely that some random segment, or perhaps a
+corrupted segment is going to overlap your own sequence window.
+So, the active side sends a SYN saying, This is my starting sequence number, S sub
+a. The passive side responds, also with the
+SYN saying, okay, that's, I'm going to synchronize you.
+My starting sequence number is let's say, S sub p, for passive. But, I'm also going
+to set the ACK bit which means that the acknowledgement sequence number in the
+packet is valid. And I'm going to ACK S(a+1).
+Recall that a node acknowledges not the last byte received, but rather the first
+byte that hasn't been received. So, by sending ACK S(a+1), the passive
+side has acknowledged that it has received the SYN which is effectively by S sub a.
+The active side then responds. It doesn't need to send the SYN because it's
+synchronized. So, it sends a packet with sequence number
+S(p+1), that's commonly what's used. and ACK S, I'm sorry,
+It sends the packet with S(a+1) and ACK S(p+1)
+And, so now, it's acknowledging saying, I
+have received your SYN and I'm acknowledging that.
+Now, this initial packet, the sequence number is S(a+1) but it tends to be of
+zero length. So, if there were a byte in the packet, it
+would be Sa(a+1) but it's not, and this is of length zero.
+This is a, just a, a simple control packet.
+And so, there's a sequence number of which the bytes would start, but there are no
+bytes. So, that's the basic connection setup.
+SYN, SYN ACK, ACK, A, A + one, P, P + one, and then an empty segment just for
+connection establishment. So, turns out TCP also supports another
+way of opening connections, one that's called simultaneous open, which I said is used a
+lot, as you'll see later, in the course in peer to peer applications to reverse
+things called network address translation boxes.
+And so, the way simultaneous open works is this happens if both the active, if the
+two sides, we call them active and passive but now they're really both active,
+Both know each other's port numbers. So, the node on the left knows that the
+port that the node on the right is issuing a connection request from, the node on the
+right knows the same for the node on the left.
+And so, they're using the correct port numbers.
+And they do this, they negotiate this, say, beforehand.
+So, what happens with simultaneous open is both sides send SYNs at the same time.
+And so, here the one on the left sends a SYN. Let's call this S sub a again. But,
+at the same time, then on the right sends a SYN S sub p.
+Well then, on the left, responds and it sends SYN S sub a,
+Ack S sub p + one. Similarly, the one on the right responds
+with SYN S sub p, ACK S sub a + one. At this point, we have now established the
+connection. Both sides are synchronized we know the starting sequence numbers
+that acknowledged that. but note that this takes four messages rather than three.
+So, let's see this just a standard 3-way handshake and practice.
+So, here I've opened up Wireshark, filtering on port 80 and a certain IP address.
+And so, I'm just going to telnet to a port 80 on that host and we'll see the SYN, SYN
+ACK, ACK set up. And so, there it is.
+So, here's the first packet sent from my host to the destination.
+And we see that it's an HTTP port 80 SYN sequence number zero.
+And there's no ACK sent, There's no ACK bit.
+And so, the acknowledgement field's invalid, so it's not displayed.
+Now, it turns out the sequence in this packet isn't actually zero.
+What tools like Wireshark do, just to make things easier to read is they use relative
+sequence numbers. They show you what the sequence number is
+relative to the beginning of the stream. And since were just starting the stream,
+we see sequence number zero. We dig inside the packet, down here at the
+bottom we see. Wireshark tells you, sequence number zero
+relative sequence number. And if we then look at the actual field,
+it's ccbd1dbb. And so, it's much larger than zero.
+Now, we do then see is for the second packet that's acknowledging this.
+It's going to acknowledge with ccbd1dbc. Here again, it's using relative ACK
+numbers but that's what we see, Ccbd1dbc.
+And, it's also sending a, a SYN, so here's the SYN ACK.
+And so, the sequence number again, a relative sequence number of zero but it's
+341135ae. So, this is from my host to the server.
+This is server back or the SYN ACK. Then, my host responds with an ACK. And
+so, you can see sequence number one. Acknowledgment number one, so it's
+acknowledging the SYN that was sent from the server and it gives a sequence
+number one but it's a length of zero. And so, it's saying a-ha, you know, I,
+this packet contains the stream starting at byte one, but there's nothing in it so
+there's actually no data yet. So, there we see a simple 3-way
+handshake..so So now, let's look at a TCP connection when there is data, so we're
+going to see the SYN, SYN ACK, and then some data communication.
+So, we do the same thing as before except this time rather than tellnetting to port
+80 where there's no data transferred, I'm just going to do a standard web, web
+request to port 80. And so, here we see a TCP connection.
+And so, here we have the SYN, SYN ACK, Ack. Now, the connection has been
+established and then data transmission starts.
+And so, here's a packet shown as HTTP. And if we look inside,
+This particular TCP segment, see sequence number one, just the start of the data
+stream. Length 474, so this particular chunk of
+data was 474 bytes long. So, the next sequence number would be 475,
+still ACK one. And so, there's the data that we're
+sending a request to the web server,
+Then the web server responds. And it responds with ACK 475,
+Right? So, the next byte it will expect is 475 but sequence number one.
+So, this is just length zero, this ACK, it has no data in it.
+This is what we call sort of just ACK packet.
+And so, it has no TCP segment data, but it's acknowledging the data that is
+received. The next packet, though, from the server
+actually has data in it. So, you can see here, length 1448,
+but sequence number one. So, it's one to 1449.
+And here's the next TCP segment. And then we see here, putting that together,
+there's the HTTP response which is put together. And so, there we see the
+connection establishment and now the sequence and acknowledged number of spaces
+are walking forward according to the data communication.
+So, next we're going to look at how TCP tears down a connection. Like a, a
+connection setup, the uses the sequence number, acknowledgement number fields. But
+unlike connection setup which use the synchronization bit to synchronize
+sequence numbers, connection teardown uses the FIN bits to denote there's no more
+data to send, so it uses the ACK in FIN bits.
+And so, when TCP sends a packet with the FIN bit.
+What this means is that, that sender has no more data to send,
+This is the end of the stream. This is causing you to say, call close or
+shut down, in the application. But, TCP connections, like most reliable
+connections, are bidirectional. And so, it's not until both sides have
+nothing to send that you actually terminate the connection because it could
+be one side is done but the other side has more to send.
+And so, it's not until both sides have, have FINed and you've acknowledged those
+that you can tear things down. So, a typical teardown exchange looks like
+this where we say, if A and B who are communicating, and A closes first.
+And so, it sends a packet with a FIN bit with sequence number S sub A and
+acknowledging S sub B. B then sends a packet to aknowledge this
+FIN, so ACK S sub A + one. Then, at some point later, B decides it
+needs to close it's side of the connection so it sends a FIN, sequence number S sub B
+Acknowledgment S sub one is still acknowledging Sa + one, which then A
+responds saying, I'll acknowledge Sb + one.
+So, FIN like SYN represents of the last byte of the connection.
+The way that you, like SYN represents the first byte, the way you acknowledge by is
+acknowledging plus one with FIN, you acknowledge you receive it by
+acknowledging plus one. Of course, you, you can have also
+simultaneous close, where they send the FINs in parallel and the same exchange
+occurs. Great. So now, we've exchanged these
+messages and we've acknowledged them. When can we actually tear down the
+connection? When can we actually delete the state?
+When can we reuse the ports? This turns out to be nontrivial.
+You can't do it immediately. So, for example, what happens if this
+final ACK is lost in the network? So, I've sent FIN, then I receive a FIN
+then I ACK it, I can't immediately teardown my connection
+because, what happens if that ACK is lost? The other side's never going to hear it.
+It's never going to know whether the connection was, torn down.
+Another issue is it could be that we do a FIN, FIN ACK, and an acknowledgement
+teardown and then the same port pair, the same port pair is used immediately for a
+new connection. We want to make sure that we don't, by
+accident, then corrupt the data because the sequence number of spaces overlap.
+So, the solution is used is the active closer goes to something called, time wait.
+And what this means is that, if I'm the person who sends the FIN first, then, once
+the connection is torn down, I have to wait a little while before I can reuse my
+state. And so, you keep the socket around for
+two, what's, sort of the maximum segment lifetimes.
+So, two times what you expect to be the longest time, segments might live in the
+network which is on the order of a, say a minute or so.
+So, this approach of two maximum segment lifetimes can pose problems with servers.
+In particular, if I have a server and it has tons and tons of sockets which is in
+this time wait state, this can slow things down, the server, when closing first.
+There are tricks. You can send a reset, delete the socket,
+you can set an option to make the, the linger time to be zero.
+Another issue is the OS might not let you reuse a port because it's still in use.
+There is an option you can do called SO<u>REUSEADDR that'll let you to rebind a</u>
+port number. So, this is useful if say, you're just
+de-bugging something and gosh, I don't want to have to wait two hours just
+because I happened to have FINed in this order.
+So, let's see what a connection teardown looks like.
+So, here's a basic connection set up, SYN, SYN ACK, ACK, and then here's the
+teardown. So, because we are, are exchanging
+data, we have acknowledgement bit set. So, here's the FIN,
+Here's the initial FIN from my host when I close the connection.
+And so, it sets the FIN bit ACK one sequence number one, ACK one.
+Then, the server, in response, is also, closing, so it sends a FIN sequence number
+one, ACK two. So, it's acknowledging my FIN.
+And then, my host responds with an ACK, for that FIN sequence number two, ACK two.
+So, here's a simple 3-way handshake for tearing down the connection.
+FIN, Acknowledging some prior data,
+Acknowledging the FIN, sending your own FIN, and then acknowledging the FIN.
+So now, if we put all of this together, we can see what the full TCP finite state
+machine looks like. And so, this something you're going to
+come across many, many times. This is well-established finite state
+machine that really sort of, lays the ground for how you want to set up reliable
+connections. And so, I'm going to walk through it.
+It looks pretty complicated when you first see but it's because there are a couple of
+cases. And actually, given what we've presented
+before, it should all, all be pretty simple.
+So first, we're starting in the close state.
+So, this is when there are no connections open, you know, I'm just sitting there.
+My application's now tried to open a connection.
+So then, the first transition here to the listen state,
+This is the passive opener. This is a server.
+Server's listening to connections. So, you can see, the action is listen and
+there's no packets exchanged. If you close it, you then return to the
+close state. So, that is if I'm listening for
+connections, I hear nothing and return to the closed state.
+The other transition out of the closed state is the active open. So, here's the
+connect. And connect causes a SYN packet to be sent so this is step one of the
+3-way handshake.. So, you send a SYN and you're now in the
+SYN send state, SYN send state, this is the active side.
+These red lines are showing the active opener of the 3-way connection. So, SYN
+sent. Then, if you receive a SYN in ACK, so this
+is the stage two.. You send an ACK, and now the connection's established.
+So, this path here, This is the active opener.
+Now, let's watch the passive opener. The passive opener is in the listen state,
+and it receives a SYN from an active opener. In response, it sends a SYN ACK
+enters the SYN receive state. Then, if it receives an acknowledgement
+for it's SYN in stage three on the 3-way handshake, a reflection of this step here,
+then the connection has been established. Now, if you're in the listen state, it's
+possible that you can also call send to them results in sending a SYN message. or
+you can also, in that way you are then going to, even though, you're in listen
+state, you can actively open and active an open state.
+So now, there's one more path here which I mentioned, the 4-way simultaneous open,
+Which is this. And so, this is when both sides have sent
+SYN. So, we're just looking at one side of the
+connection. And in response to a SYN, you get a SYN
+from the other side. And so, this is the two SYNs crossing.
+So, in response you send SYN + ACK, SYN received, then you ACK.
+And so, there's the four messages. Each has sent a SYN,
+Each had received a SYN, And then received the SYN and sent a
+SYN/ACK and there is an ACK data exchange can occur.
+So now we are in the established state. Now, of course, you can always transition
+out. In fact, it closes and resets. So now, at this point, we've gone through
+connection establishment. Now, we're going to go into connection
+teardown. And so, there are two cases here.
+One is that, if we're the active closer here we call close that results in a FIN
+message being sent, A FIN, packet with a FIN bit.
+We now enter a FIN wait one. The other is, if we receive a FIN, then we
+acknowledge it. And we're now on the passive close state
+with the other side is closed, and then we call, when we actually call close,
+We'll send FIN, send the last ACK and be closed.
+And so, here in closed wait we're still allowed to send data right until we call
+close. This is the other side is closed but we
+haven't. So now, when close is called, we're in the
+FIN one state and there's a bunch of transitions out of that.
+One is that, we receive a FIN. So, we've sent a FIN, received a FIN.
+So, this is the example I showed with the TCP teardown. So, we've sent a FIN, we've
+received a FIN, we acknowledge it. We're now in the closing state, we then
+transition to time wait. Another is that we receive a FIN plus an
+ACK. So, we can just acknowledge that and enter
+time wait. Final one is that, we receive an ACK, but
+no FIN. So, this is, we have closed our side of
+the connection, but the other side hasn't. And so it's sort of this state here is
+correlated with this state here. Then, when we do receive the FIN, we
+acknowledge it into the time wait state. And then, we have the time out before we
+can actually close and recover the state. So, you can ask, what's the difference
+between this transition to closing and time wait?
+The reason is that this transition to closing is when the two FINs pass each
+other. So, I send a FIN,
+The other side sends me a FIN, But hasn't acknowledged my FIN.
+This is the difference between FIN/ACK and FIN + ACK/ACK. And so, then I wait for
+that FIN to be acknowledged, and then transition to time wait.
+So, this is the full TCP finite state machine.
+It looks really complicated. I mean, it does have, one, two, three,
+four, five, six, seven, eight, nine, ten, eleven, twelve states.
+But when you realize it breaks down into these two parts, connection establishment,
+connection tear down, and really there's just a bunch of different possible ways
+that FINs can be exchanged, it's actually not that complicated.
+So, I encourage you to open up Wireshark and just open up a couple of web
+connections to see what, what's happening with your TCP connections, and you'll be
+able to see how those different connections are traversing this finite
+state machine.

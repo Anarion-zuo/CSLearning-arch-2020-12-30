@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/binarytree/BinarySearchTree.h
+BinaryTree.h
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/binarytree/BinaryTree.h
+
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/binarytree/BinaryTree.h
+TreeNode.h
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/binarytree/TreeNode.h
+iostream
+-
+
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/binarytree/TreeNode.h
+
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/dynamic_programming/dynamic.h
+cstddef
+-
+vector
+-
+
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/main.cpp
+iostream
+-
+dynamic_programming/dynamic.h
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/dynamic_programming/dynamic.h
+sort/sort.h
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/sort/sort.h
+binarytree/BinarySearchTree.h
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/binarytree/BinarySearchTree.h
+
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/sort/sort.h
+vector
+-
+

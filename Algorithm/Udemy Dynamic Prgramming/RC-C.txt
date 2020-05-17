@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// A very large number defined as infinity
+int INF = 999999;
+
+int rodCutter(int cost[], int n){
+
+    // Initializing rod array
+    int rod[n+1];
+    rod[0]= 0;
+
+    // Loop for each rod length 'i'
+    for(int i = 1; i <= n; i++){
+        int max_val = -INF;
+        // Loop for smaller cut lengths 'j'
+        for(int j = 1; j <= i; j++){
+            // Updating max_val
+            max_val = max( max_val, cost[j] + rod[i-j] );
+        }
+        rod[i] = max_val;
+    }
+    return rod[n];
+}
+
+int main(){
+
+    int cost[5] = {0, 2, 4, 7, 8};
+    int n = sizeof(cost)/sizeof(cost[0]) - 1;  // n is always 1 less than cost array length because 0'th element is cost[0]
+
+    printf("Maximum value that could be earned by cutting up the rod and selling the pieces of the cost array {0,2,4,7,8} is: %d.", rodCutter(cost,n) );
+
+    return 0;
+}
+

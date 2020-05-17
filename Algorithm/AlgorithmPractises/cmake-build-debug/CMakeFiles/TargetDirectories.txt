@@ -1,0 +1,3 @@
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/cmake-build-debug/CMakeFiles/AlgorithmPractises.dir
+/home/anarion/Documents/CSLearning/Basic-Computer-Theory/Algorithm/AlgorithmPractises/cmake-build-debug/CMakeFiles/edit_cache.dir
