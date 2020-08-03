@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section{Convex Sets}
+\label{sec:convex-sets}
+
+\subsection{Every Convex Combinition is in the Convex Set}
+\label{subsec:conbinition-in-set}
+\begin{proof}
+
+This is done by proving by induction.\\
+The definition of a convex set says, for any 2 points in set $C$, their convex combinition is in the set. Therefore, for the case of $k=2$, there is:
+$$
+\theta_1x_1+\theta_2x_2\in C
+$$
+For any $k$, suppose $\sum_i^k\theta_ix_i=x^*\in C$, the $k+1$ case is :
+$$
+\theta_1x_1+...+\theta_kx_k+\theta_{k+1}x_{k+1}=x^*+\theta_{k+1}x_{k+1}\in C
+$$
+
+\end{proof}
+
+\subsection{Convexity from Line Intersection}
+\begin{proof}
+
+The lemma is intuitively right. Taking the intersection of a set is to "slice" it with a line or hyperplane. All of the slices must be convex in order for the set to be convex. The intersection says that the condition for a line and affine/convex set must hold at the same moment.\\
+Condition for a line:
+\begin{equation}
+w^Tx=b
+\label{equ:line-condition}
+\end{equation}
+Condition for a affine set:
+\begin{equation}
+\theta_ix_i+\theta_jx_j\in C,\theta_i+\theta_j=1
+\label{equ:affine-condition}
+\end{equation}
+Plug in the condition of the line:
+\begin{equation}
+w^T\theta_ix_i+w^T\theta_jx_j=w^T(\theta_ix_i+\theta_jx_j)=(\theta_i+\theta_j)b=b
+\end{equation}
+The above shows indication from both sides. For any affine set, the intersection with any line is affine, while for any line, if the intersections are all affine, the set is affine.
+
+\end{proof}
+
+\subsection{Midpoint Convexity Implies Convexity}
+\begin{proof}
+For any $x,y\in C$, there is:
+$$
+\frac{1}{2}x+\frac{1}{2}y\in C
+$$
+Apply this recursively to every point in the set. Every point can be represented by a sum times a half. Neverthless, we try to express every point on a line segment with divisions by 2.
+$$
+\theta x+(1-\theta)y=x+\theta(y-x)
+$$
+The key is to proof that $\theta$ can take continuous value along the interval $[0,1]$. By taking infinite times of division, a point on the line segment can be represented by the power series of $1/2$:
+$$
+\theta=\sum_ic_i2^{-i}
+$$
+\end{proof}
+
+\subsection{Convex Hull is the Intersection of All}
+\begin{proof}
+This is to proof that any convex set containing $S$ also contains {conf} $S$, and no larger.
+\end{proof}
+
+\subsection{Distance between Hyperplanes}
+
+The distance between the hyperplanes is the length of the projection of the difference between 2 vectors on the 2 planes on the direction of the normal vector. Suppose there are 2 vectors on the 2 planes $a^Tx_1=b_1,a^Tx_2=b_2$. The length of the projection is given by the inner product between the vectors:
+$$
+l=\frac{a^T(x_1-x_2)}{||a||_2}=\frac{b_1-b_2}{||a||_2}
+$$
+
+\subsection{Halfspaces Contain each Other}
+This is to express the condition that a vector is contained by a set as well as another.
+$$
+a^Tx\le b\Rightarrow \tilde a^Tx\le \tilde b
+$$
+$a,\tilde a$ must be parrelle to each other, or the condition won't hold. Therefore:
+$$
+\lambda a=\tilde a, a^Tx\le b\Rightarrow a^Tx\le \frac{1}{\lambda}\tilde b
+$$
+In order for this to hold:
+$$
+b \le \frac{1}{\lambda}\tilde b
+$$
+
+\subsection{Mid Half Space}
+The boundary is $||x-a||_2=||x-b||_2$, which is a line by a theorem of geometry. Neverthless, we perform the computation here.
+$$
+||x-a||_2^2=\sum_j(x_j-a_j)^2, ||x-a||_2^2-||x-b||_2^2=\sum_j(b_j-a_j)(2x_j-(a_j+b_j))
+$$
+The sum is represented as an inner product:
+$$
+\sum_j(b_j-a_j)(2x_j-(a_j+b_j))=(b-a)^T(2x-(a+b))
+$$
+Express in the form of $c^Tx=d$:
+$$
+(b-a)^T2x=(b-a)^T(a+b)=b^2-a^2
+$$
+
+\subsection{Express Polyhedra}
+\paragraph{(a)}
+$$
+x=y_1a_1+y_2a_2=
+\begin{pmatrix}
+a_1 & a_2
+\end{pmatrix}
+\begin{pmatrix}
+    y_1 \\ y_2
+\end{pmatrix}=Ay
+$$
+Write the inverse form:
+$$
+y=A^{-1}x
+$$
+Plug in the range in $y$:
+$$
+A^{-1}x\succeq(-1,-1)^T,A^{-1}x\preceq(1,1)^T
+$$
+
+\paragraph{(b)}
+Compose the 3 expressions together:
+$$
+\begin{pmatrix}
+    a_1 \\ a_2 \\ 1
+\end{pmatrix}x=\begin{pmatrix}
+    b_1 \\ b_2 \\ 1
+\end{pmatrix}
+$$
+
+\paragraph{(c)}
+Expand the norm:
+$$
+\sum_i^ny_i^2=1
+$$
+
+\subsection{Voronoi Sets}
+\paragraph{(a)}
+Expand norm:
+$$
+(x-x_0)^2\le(x_i-x_0)^2\Rightarrow 2(x_i-x_0)^Tx=2x^T(x_i-x_0)\le x_i^Tx_i-x_0^Tx_0
+$$
+To the right form:
+$$
+A_{K\times n}=\begin{pmatrix}
+\vdots\\
+x_i^T-x_0^T\\
+\vdots\\
+\end{pmatrix}
+,b_{K\times1}=\begin{pmatrix}
+    \vdots\\
+    x_i^2-x_0^2\\
+    \vdots\\
+\end{pmatrix}
+$$
+\paragraph{(b)}
+
+\subsection{Quadratic}
+\paragraph{(a)}
+Plug in the definition of convex sets:
+$$
+x
+$$
+
+\paragraph{(b)}
+
+\end{document}
