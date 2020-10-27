@@ -1,0 +1,628 @@
+	<head>
+
+
+<!-- Start Wayback Rewrite JS Include -->
+<script type="text/javascript" src="/static/js/jwplayer/jwplayer.js" ></script>
+<script type="text/javascript" src="/static/js/video-embed-rewriter.js"></script>
+<script type="text/javascript">
+function initYTVideo(id)
+{
+	_wmVideos_.init("/web/", id);
+}
+</script>
+<!-- End Wayback Rewrite JS Include -->
+
+		<title>18.701: Algebra, Fall  2011</title>
+	</head>
+	<body>
+<!-- BEGIN WAYBACK TOOLBAR INSERT -->
+
+<script type="text/javascript" src="/static/js/disclaim-element.js" ></script>
+<script type="text/javascript" src="/static/js/graph-calc.js" ></script>
+<script type="text/javascript" src="/static/jflot/jquery.min.js" ></script>
+<script type="text/javascript">
+//<![CDATA[
+var firstDate = 820454400000;
+var lastDate = 1388534399999;
+var wbPrefix = "/web/";
+var wbCurrentUrl = "http:\/\/math.mit.edu\/classes\/18.701\/";
+
+var curYear = -1;
+var curMonth = -1;
+var yearCount = 18;
+var firstYear = 1996;
+var imgWidth = 450;
+var yearImgWidth = 25;
+var monthImgWidth = 2;
+var trackerVal = "none";
+var displayDay = "19";
+var displayMonth = "Mar";
+var displayYear = "2012";
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function showTrackers(val) {
+	if(val == trackerVal) {
+		return;
+	}
+	if(val == "inline") {
+		document.getElementById("displayYearEl").style.color = "#ec008c";
+		document.getElementById("displayMonthEl").style.color = "#ec008c";
+		document.getElementById("displayDayEl").style.color = "#ec008c";		
+	} else {
+		document.getElementById("displayYearEl").innerHTML = displayYear;
+		document.getElementById("displayYearEl").style.color = "#ff0";
+		document.getElementById("displayMonthEl").innerHTML = displayMonth;
+		document.getElementById("displayMonthEl").style.color = "#ff0";
+		document.getElementById("displayDayEl").innerHTML = displayDay;
+		document.getElementById("displayDayEl").style.color = "#ff0";
+	}
+   document.getElementById("wbMouseTrackYearImg").style.display = val;
+   document.getElementById("wbMouseTrackMonthImg").style.display = val;
+   trackerVal = val;
+}
+function getElementX2(obj) {
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
+}
+function trackMouseMove(event,element) {
+
+   var eventX = getEventX(event);
+   var elementX = getElementX2(element);
+   var xOff = eventX - elementX;
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
+   var monthOff = xOff % yearImgWidth;
+
+   var year = Math.floor(xOff / yearImgWidth);
+	var yearStart = year * yearImgWidth;
+   var monthOfYear = Math.floor(monthOff / monthImgWidth);
+   if(monthOfYear > 11) {
+       monthOfYear = 11;
+   }
+   // 1 extra border pixel at the left edge of the year:
+   var month = (year * 12) + monthOfYear;
+   var day = 1;
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
+
+	var monthString = prettyMonths[monthOfYear];
+	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayMonthEl").innerHTML = monthString;
+	// looks too jarring when it changes..
+	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
+
+	var url = wbPrefix + dateString + '/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+
+   //document.getElementById("wmtbURL").value="evX("+eventX+") elX("+elementX+") xO("+xOff+") y("+year+") m("+month+") monthOff("+monthOff+") DS("+dateString+") Moy("+monthOfYear+") ms("+monthString+")";
+   if(curYear != year) {
+       var yrOff = year * yearImgWidth;
+       document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
+       curYear = year;
+   }
+   if(curMonth != month) {
+       var mtOff = year + (month * monthImgWidth) + 1;
+       document.getElementById("wbMouseTrackMonthImg").style.left = mtOff + "px";
+       curMonth = month;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
+<div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
+<div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(/static/images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
+   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+   <td style="padding:10px;vertical-align:top;min-width:110px;">
+   <a href="/web/" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   </td>
+   <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
+
+       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+       <td style="padding:3px 0;" colspan="2">
+       <form target="_top" method="get" action="/web/form-submit.jsp" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="url" id="wmtbURL" value="http://math.mit.edu/classes/18.701/" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;" onfocus="javascript:this.focus();this.select();" /><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20120319135520" /><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;" /><span id="wm_tb_options" style="display:block;"></span></form>
+       </td>
+       <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
+           <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
+			
+           <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+           <tr style="width:110px;height:16px;font-size:10px!important;">
+           	<td style="padding-right:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20120119011526/http://math.mit.edu/classes/18.701/" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="19 Jan 2012"><strong>JAN</strong></a>
+		                
+               </td>
+               <td id="displayMonthEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight:bold;text-transform:uppercase;width:34px;height:15px;padding-top:1px;text-align:center;" title="You are here: 13:55:20 Mar 19, 2012">MAR</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight:bold;text-transform:uppercase;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20130429180307/http://math.mit.edu/classes/18.701/" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="29 Apr 2013"><strong>APR</strong></a>
+		                
+               </td>
+           </tr>
+
+           <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+           <tr>
+               <td style="padding-right:9px;white-space:nowrap;overflow:visible;text-align:right!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20120220124050/http://math.mit.edu/classes/18.701/" title="12:40:50 Feb 20, 2012" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a>
+		                
+               </td>
+               <td id="displayDayEl" style="background:#000;color:#ff0;width:34px;height:24px;padding:2px 0 0 0;text-align:center;font-size:24px;font-weight: bold;" title="You are here: 13:55:20 Mar 19, 2012">19</td>
+				<td style="padding-left:9px;white-space:nowrap;overflow:visible;text-align:left!important;vertical-align:middle!important;" nowrap="nowrap">
+               
+		                <a href="/web/20130429180307/http://math.mit.edu/classes/18.701/" title="18:03:07 Apr 29, 2013" style="background-color:transparent;border:none;"><img src="/static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0"/></a>
+		                
+			    </td>
+           </tr>
+
+           <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+           <tr style="width:110px;height:13px;font-size:9px!important;">
+				<td style="padding-right:9px;font-size:11px!important;font-weight: bold;text-align:right;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20100608032957/http://math.mit.edu/classes/18.701/" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="8 Jun 2010"><strong>2010</strong></a>
+		                
+               </td>
+               <td id="displayYearEl" style="background:#000;color:#ff0;font-size:11px!important;font-weight: bold;padding-top:1px;width:34px;height:13px;text-align:center;" title="You are here: 13:55:20 Mar 19, 2012">2012</td>
+				<td style="padding-left:9px;font-size:11px!important;font-weight: bold;white-space:nowrap;overflow:visible;" nowrap="nowrap">
+               
+		                <a href="/web/20130429180307/http://math.mit.edu/classes/18.701/" style="text-decoration:none;color:#33f;font-weight:bold;background-color:transparent;border:none;" title="29 Apr 2013"><strong>2013</strong></a>
+		                
+				</td>
+           </tr>
+           </tbody></table>
+       </td>
+
+       </tr>
+       <tr>
+       <td style="vertical-align:middle;padding:0!important;">
+           <a href="/web/20120319135520*/http://math.mit.edu/classes/18.701/" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="See a list of every capture for this URL"><strong>11 captures</strong></a>
+           <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="Timespan for captures of this URL">10 Oct 09 - 29 Apr 13</div>
+       </td>
+       <td style="padding:0!important;">
+       <a style="position:relative; white-space:nowrap; width:450px;height:27px;" href="" id="wm-graph-anchor">
+       <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:450px;height:27px;background-color:#fff;cursor:pointer;border-right:1px solid #ccc;" title="Explore captures for this URL">
+			<img id="sparklineImgId" style="position:absolute; z-index:9012; top:0px; left:0px;"
+				onmouseover="showTrackers('inline');" 
+				onmouseout="showTrackers('none');"
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="450"
+				height="27"
+				border="0"
+				src="/web/jsp/graph.jsp?graphdata=450_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000200_2010:-1:000002000000_2011:-1:000000000000_2012:2:321000000000_2013:-1:000100000000"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="25" 
+				height="27"
+				border="0"
+				src="/static/images/toolbar/transp-yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="2"
+				height="27" 
+				border="0"
+				src="/static/images/toolbar/transp-red-pixel.png"></img>
+       </div>
+		</a>
+
+       </td>
+       </tr></tbody></table>
+   </td>
+   <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="Close the toolbar">Close</a>
+       <a href="http://faq.web.archive.org/" style="display:block;padding-right:18px;background:url(/static/images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="Get some help using the Wayback Machine">Help</a>
+   </td>
+   </tr></tbody></table>
+
+</div>
+</div>
+<script type="text/javascript">
+ var wmDisclaimBanner = document.getElementById("wm-ipp");
+ if(wmDisclaimBanner != null) {
+   disclaimElement(wmDisclaimBanner);
+ }
+</script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+
+	<h1>18.701: Algebra I, Fall 2011 </h1>
+<!--
+REMEMBER THAT THE TITLE APPEARS TWICE HERE
+-->
+
+		<h2>Reminders</h2>      
+		<p>
+
+The last quiz is next friday, December 9.<br>
+<br>
+PLEASE NOTE ROOM:<br>
+This quiz will be given in 26-100 for all of you, <br>
+not where the previous quizzes were. <br><br> Topics to be
+covered:<br> Chapter 7, Sections 1-7, Chapter 8, Sections 1-7,
+Chapter 9, Sections 1-5.<br><br>
+A practice quiz has been posted. <br>
+
+<!--
+The second quiz is this coming wednesday, November 2
+ at the usual class time:  11-12.<br>
+A practice quiz is posted below. <br>
+<br>Topics to be covered:<br>
+  Chapter 3, Sections 3.3-3.6,  Chapter 4,  Sections 4.1-4.6, <br>
+hapter 5, Section 5.1, Chapter 6, Sections 6.1-6.9.
+<br>
+<br>
+As before, we have to split the class.<br>
+PLEASE NOTE ROOMS<br>
+Last name A-H: Room 4-270 (our usual classroom).<br>
+Last name J-Z: Room 1-190 (on the other side of the great court).<br>
+
+The first quiz is monday, October 3, at the usual class time:  11-12.<br>
+<br>
+Unfortunately there is no room that is big enough. <br>
+We'll have to split the class.<br>
+<br>
+PLEASE NOTE ROOMS<br>
+Last name A-H: Room 4-270 (our usual classroom).<br>
+Last name J-Z: Room 1-190 (on the other side of the great court).<br><br>
+
+Topics to be covered:  Chapter 2 and the section on fields in Chapter 3.<br>
+Stuff from Chapter 1 may appear incidentally. <br>
+<br>
+Expect problems similar to the ones on the daily assignments.<br>
+Problems like those on the homework are too extensive for an
+hour quiz.<br><br>
+
+I've posted  a practice quiz. <br>
+
+-->
+		<h2>Announcements</h2>      
+		<p>
+<!--
+The due date for the Problem Set 9 (which is labelled number 10) <br>
+is hereby changed to wednesday, November 30.<br><br>
+-->
+
+Quadrics were discussed in class on Wednesday, November 23. 
+<br>
+It you missed that class, please study the section in the text. 
+
+<!--
+<br> We'll begin the next chapter, on linear groups, next week.<br><br>
+--->
+<!--
+A handout on discrete subgroups with point group D_1 <br>
+and a questionnaire have been posted. <br>
+
+The due date for the fifth problem set is changed to <br>
+Friday, October 21.<br>
+-->
+		<h2>Information</h2>      
+
+		</ul>
+	
+
+        		<li>General Information </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/newdescr11.pdf">(pdf)</a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/newdescr11.dvi">(dvi)</a>
+
+
+        		<li>Subject Outline </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/newoutline11.pdf">(pdf)</a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/newoutline11.dvi">(dvi)</a>
+
+
+
+
+ <!--
+			<li>Quiz Dates </a>
+			    <a href="quizdates11.pdf">(pdf)</a>
+			    <a href="quizdates11.dvi">(dvi)</a>
+-->
+
+	<li>$10 for error </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/err.pdf">(pdf)</a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/err.dvi">(dvi)</a>
+
+
+			<li>Errata List for 2nd ed </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/erratalist.pdf">(pdf)</a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/erratalist.dvi">(dvi)</a>
+
+
+<!--
+-->
+
+		<h2>Problem Sets</h2>
+
+
+
+       	 		<li>Problem Set #10b </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset10.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset10.dvi">(dvi)</a> 
+
+
+       	 		<li>Problem Set #9 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset9.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset9.dvi">(dvi)</a> 
+
+       	 		<li>Problem Set #8 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset8.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset8.dvi">(dvi)</a> 
+
+       	 		<li>Problem Set #7 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset7.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset7.dvi">(dvi)</a> 
+
+       	 		<li>Problem Set #7 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset7.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset7.dvi">(dvi)</a> 
+
+       	 		<li>Problem Set #6 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset6.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset6.dvi">(dvi)</a> 
+
+       	 		<li>Problem Set #5 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset5.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset5.dvi">(dvi)</a> 
+
+
+       	 		<li>Problem Set #4 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset4.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset4.dvi">(dvi)</a> 
+
+
+       	 		<li>Problem Set #3 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset3.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset3.dvi">(dvi)</a> 
+
+       	 		<li>Problem Set #2 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset2.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset2.dvi">(dvi)</a> 
+
+
+       	 		<li>Problem Set #1 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset1.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pset1.dvi">(dvi)</a> 
+
+ 			<li>Diagnostic Problem </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/diagn11.pdf">(pdf)</a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/diagn11.dvi">(dvi)</a>
+
+<!--
+-->
+		</ul>
+
+		<h2>Handouts</h2>      
+
+
+  	 		<li>Practice Quiz 3 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/practice-quiz3.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/practice-quiz3.dvi">(dvi)</a> 
+
+                	<li>Solutions to Practice Quiz 3 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pquiz3-solns.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/pquiz3-solns.dvi">(dvi)</a> 
+
+  	 		<li>The Spectral Theorem </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/normaloperators11v2.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/normaloperators11v2.dvi">(dvi)</a> 
+
+<!--  	 		<li>Comments on Quiz 2 </a>
+			    <a href="quiz2-comments.pdf">(pdf)</a> 
+			    <a href="quiz2-comments.dvi">(dvi)</a> 
+-->
+  	 		<li>Plane Crystallographic groups with Point Group D_1 </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/d1group11.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/d1group11.dvi">(dvi)</a> 
+
+                         <li>The multiplicative group modulo p </a>
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/cyclic12.pdf">(pdf)</a> 
+			    <a href="/web/20120319135520/http://math.mit.edu/classes/18.701/cyclic12.dvi">(dvi)</a> 
+
+
+<!--
+
+  	 		<li>Questionnaire </a>
+			    <a href="linalg-quest.pdf">(pdf)</a> 
+			    <a href="linalg-quest.dvi">(dvi)</a> 
+
+
+  	 		<li>Practice Quiz 2 </a>
+			    <a href="practice-quiz2.pdf">(pdf)</a> 
+			    <a href="practice-quiz2.dvi">(dvi)</a> 
+
+                	<li>Solutions to Practice Quiz 2 </a>
+			    <a href="pquiz2-solns.pdf">(pdf)</a> 
+			    <a href="pquiz2-solns.dvi">(dvi)</a> 
+
+
+  	 		<li>Comments on Quiz 1 </a>
+			    <a href="quiz1-comments.pdf">(pdf)</a> 
+			    <a href="quiz1-comments.dvi">(dvi)</a> 
+
+  	 		<li>Practice Quiz 1 </a>
+			    <a href="pquiz1.pdf">(pdf)</a> 
+			    <a href="pquiz1.dvi">(dvi)</a> 
+
+                 	<li>Comments on the diagnostic problem </a>
+			    <a href="diagn-comments.pdf">(pdf)</a> 
+			    <a href="diagn-comments.dvi">(dvi)</a> 
+
+                	<li>Solutions to Practice Quiz 3 </a>
+			    <a href="pq3solns.pdf">(pdf)</a> 
+			    <a href="pq3solns.dvi">(dvi)</a> 
+
+                 	<li>Comments on Quiz 3 </a>
+			    <a href="quiz3slns.pdf">(pdf)</a> 
+			    <a href="quiz3slns.dvi">(dvi)</a> 
+
+    <li>The Spectral Theorem for Hermitian matrices </a>
+			    <a href="spthm.pdf">(pdf)</a> 
+			    <a href="spthm.dvi">(dvi)</a> 
+
+                	<li>Crystallographic groups with point group D_1 </a>
+			    <a href="d1group10.pdf">(pdf)</a> 
+			    <a href="d1group10.dvi">(dvi)</a> 
+
+  	 		<li>Row Rank equals Column Rank </a>
+			    <a href="rrk=crk.pdf">(pdf)</a> 
+			    <a href="rrk=crk.dvi">(dvi)</a> 
+
+                         <li>The multiplicative group modulo p </a>
+			    <a href="cyclic12.pdf">(pdf)</a> 
+			    <a href="cyclic12.dvi">(dvi)</a> 
+
+                	<li>The Matrix Exponential </a>
+			    <a href="exponential.pdf">(pdf)</a> 
+			    <a href="exponential.dvi">(dvi)</a> 
+
+  	 		<li>Geometry of the Special Unitary Group </a>
+			    <a href="su2-07.pdf">(pdf)</a> 
+			    <a href="su2-07.dvi">(dvi)</a> 
+
+  	 		<li>Symmetric Forms </a>
+			    <a href="symmforms07.pdf">(pdf)</a> 
+			    <a href="symmforms07.dvi">(dvi)</a> 
+
+  	 		<li>Geometry of C^2 </a>
+			    <a href="geometryofC2.pdf">(pdf)</a> 
+			    <a href="geometryofC2.dvi">(dvi)</a> 
+
+  	 		<li>Visualizing The Hopf Fibration </a>
+			    <a href="hopfprogram.pdf">(pdf)</a> 
+			    <a href="hopfprogram.dvi">(dvi)</a> 
+
+  	 		<li>Crystallographic Groups with point group D_1 </a>
+			    <a href="d1group07.pdf">(pdf)</a> 
+			    <a href="d1group07.dvi">(dvi)</a> 
+
+  	 		<li>Isometries</a>
+			    <a href="isometry07.pdf">(pdf)</a> 
+			    <a href="isometry07.dvi">(dvi)</a> 
+
+ 	 		<li>The Multiplicative Group Modulo p </a>
+			    <a href="c.pdf">(pdf)</a> 
+			    <a href="c.dvi">(dvi)</a> 
+			    <a href="c.ps">(ps)</a>
+
+       	 		<li>Permutations </a>
+			    <a href="permutations4.pdf">(pdf)</a> 
+			    <a href="permutations4.dvi">(dvi)</a> 
+			    <a href="permutations4.ps">(ps)</a>
+
+       	 		<li>Permutation Matrices </a>
+			    <a href="perm-matrix.pdf">(pdf)</a> 
+			    <a href="perm-matrix4.dvi">(dvi)</a> 
+			    <a href="perm-matrix4.ps">(ps)</a>
+
+        		<li>Information Sheet </a>
+			    <a href="prep.pdf">(pdf)</a>
+			    <a href="prep.dvi">(dvi)</a>
+
+
+  	 		<li>Normal Subgroups of SL_2 </a>
+			    <a href="simpl.pdf">(pdf)</a> 
+			    <a href="simpl.dvi">(dvi)</a> 
+
+  	 		<li>Practice Quiz 3 </a>
+			    <a href="practice-quiz3.pdf">(pdf)</a>               		    <a href="practice-quiz3.dvi">(dvi)</a> 
+
+  	 		<li>The Alternating Group </a>
+			    <a href="alternating07.pdf">(pdf)</a> 
+			    <a href="alternating07.dvi">(dvi)</a> 
+
+  	 		<li>Rotations and Isometries</a>
+			    <a href="rotations06.pdf">(pdf)</a> 
+			    <a href="rotations06.dvi">(dvi)</a> 
+
+  	 		<li>A Note on the Matrix of a Linear Operator</a>
+			    <a href="matrixofoperator1.pdf">(pdf)</a> 
+			    <a href="matrixofoperator1.dvi">(dvi)</a> 
+
+  	 		<li>Bases of F^n and Ranks of Matrices</a>
+			    <a href="rank1.pdf">(pdf)</a> 
+			    <a href="rank1.dvi">(dvi)</a> 
+
+  	 		<li>Congruence of Integers </a>
+			    <a href="congruence1.pdf">(pdf)</a> 
+			    <a href="congruence1.dvi">(dvi)</a> 
+			    <a href="congruence1.ps">(ps)</a>
+
+       	 		<li>Greatest Common Divisor </a>
+			    <a href="gcd-lcm5.pdf">(pdf)</a> 
+			    <a href="gcd-lcm5.dvi">(dvi)</a> 
+			    <a href="gcd-lcm5.ps">(ps)</a>
+-->
+
+		</ul>
+
+
+		<h2>Course Staff</h2>
+		<p>
+
+Instructor:
+Mike Artin, artin@math.mit.edu, x3-3689, room 2-239<br>
+Office Hours: Monday 1-2, Wednesday  2-3 <br>
+		</p>
+TA: 
+Bhairav Singh,  bsingh@math.mit.edu, x2-1194, room 2-088<br>
+Office Hours: Monday 7-8, Thursday 1-2<br>
+		</p>
+Graders:  <br>
+ Ravi Charan,    rcharan@mit.edu <br>
+Yunzhi Gao,     gyz@mit.edu <br>
+ Patrick Hulin,  phulin@mit.edu <br>
+ Vlad Kontsevoi, vok@mit.edu <br>
+Cesar Cuenca, cuenca@mit.edu<br>
+ <br>
+
+Try to come to office hours during the first half hour. <br>
+We may leave after a half hour  if no one is there. <br>
+Make an appointment if the office hours are impossible for you. <br>
+
+
+
+ <br>
+
+
+
+ When you have questions about the grading of the homework, <br>
+ please
+speak to the TA or to one of the graders first. <br>
+
+</p>
+
+
+<!--
+-->
+
+	</body>
+</html>
+
+
+p
+
+
+
+
+
+<!--
+     FILE ARCHIVED ON 13:55:20 Mar 19, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 3:19:11 Oct 12, 2013.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
